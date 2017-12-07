@@ -11,7 +11,7 @@
 		<style>
 			body {
 				margin: 0px;
-				background-color: white;
+				background-color: black;
 				overflow: hidden;
 			}
 		</style>
@@ -23,9 +23,25 @@
 		<script>
 			var camera, scene,renderer;
 			var mesh;
+			var tower;
+			
 			init();
 			animate();
 			
+			///Musique Emil
+				var listener_Emil = new THREE.AudioListener();
+				camera.add(listener_Emil);
+				var sound_Emil = new THREE.Audio( listener );
+				var audioLoader_Emil = new THREE.AudioLoader();
+				
+				audioLoader.load( 'musique/Nier_Weight_of_the_world.mp3', function( buffer )
+				{
+				sound.setBuffer( buffer );
+				sound.setLoop( true );
+				sound.setVolume( 0.5 );
+				sound.play();
+				}
+				
 			function init() 
 			{
 			
@@ -35,6 +51,15 @@
 			
 				controls.update();
 				scene = new THREE.Scene();
+				
+				var geometry = new THREE.CylinderGeometry( 50, 50, 200, 60 );
+				var material = new THREE.MeshBasicMaterial( {color : 0xfff000 } );
+				tower = new THREE.Mesh( geometry, material );
+				tower.position.x=0;
+				tower.position.y=0;
+				tower.position.z=0;
+				scene.add( tower );
+				
 				
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio( window.devicePixelRatio );
