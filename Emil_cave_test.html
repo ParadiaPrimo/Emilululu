@@ -15,12 +15,15 @@
 	<body>
 
 		<script src="build/three.js"></script>
+		<script type="text/javascript" src="js/libs/dat.gui.min.js"></script>
 		<script src="js/controls/OrbitControls.js"></script>
 		<script>
 			
 			var camera, scene,renderer;
 			var tower;
 
+			
+			
 			init();
 			animate();
 
@@ -41,14 +44,21 @@
 				tower.position.z=0;
 				scene.add( tower );
 
-							
+				///Menu
+				var gui_Emil = new dat.GUI();
+				var params_Emil= 
+				{
+				}
+				gui_Emil.add(text,'musique',['Emil_song_Vocal','Kaine_salvation_Vocal','Kaine_salvation_Off_vocal'])
+
+				
 				///Musique Emil
 				var listener_Emil = new THREE.AudioListener();
 				camera.add(listener_Emil);
 				var sound_Emil = new THREE.Audio( listener_Emil );
 				var audioLoader_Emil = new THREE.AudioLoader();
 				
-				audioLoader_Emil.load( 'musique/Nier_Weight_of_the_world_Off_vocal.mp3', function( buffer )
+				audioLoader_Emil.load( 'musique/Nier_Emil_song_Vocal.mp3', function( buffer )
 				{
 				sound_Emil.setBuffer( buffer );
 				sound_Emil.setLoop( true );
@@ -56,7 +66,7 @@
 				sound_Emil.play();
 				});
 
-
+				
 
 
 				renderer = new THREE.WebGLRenderer();
