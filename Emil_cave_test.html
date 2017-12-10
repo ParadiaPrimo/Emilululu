@@ -45,26 +45,34 @@
 				scene.add( tower );
 
 				///Menu
-				var gui_Emil = new dat.GUI();
+				/*var gui_Emil = new dat.GUI();
+				var music_name;
 				var params_Emil= 
 				{
 				}
-				gui_Emil.add(text,'musique',['Emil_song_Vocal','Kaine_salvation_Vocal','Kaine_salvation_Off_vocal'])
-
+				gui_Emil.add(config,'musique',['Emil_song_Vocal','Kaine_salvation_Vocal','Kaine_salvation_Off_vocal']).name('musique_Emil').onChange(func(value))
+				{
+					music_name=value;
+					load_music(music_name)
+				}
+				*/
 				
 				///Musique Emil
-				var listener_Emil = new THREE.AudioListener();
-				camera.add(listener_Emil);
-				var sound_Emil = new THREE.Audio( listener_Emil );
-				var audioLoader_Emil = new THREE.AudioLoader();
 				
-				audioLoader_Emil.load( 'musique/Nier_Emil_song_Vocal.mp3', function( buffer )
-				{
-				sound_Emil.setBuffer( buffer );
-				sound_Emil.setLoop( true );
-				sound_Emil.setVolume( 0.2 );
-				sound_Emil.play();
-				});
+					var listener_Emil = new THREE.AudioListener();
+					camera.add(listener_Emil);
+					var sound_Emil = new THREE.Audio( listener_Emil );
+					var audioLoader_Emil = new THREE.AudioLoader();
+					audioLoader_Emil.load( 'musique/'+config.musique+'.mp3', function( buffer )
+					{
+					sound_Emil.setBuffer( buffer );
+					sound_Emil.setLoop( true );
+					sound_Emil.setVolume( 0.2 );
+					sound_Emil.play();
+					});
+				
+				
+				
 
 				
 

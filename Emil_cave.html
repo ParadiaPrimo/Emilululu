@@ -19,65 +19,10 @@
 		<script>
 			
 			var camera, scene,renderer;
-			var towerup,tower,toptower,mesh;
-			var wall,wall2,wall3,wall4,wall5,wall6,wall7,wall8,wall9,wall10,wall11,wall12,wall13,wall14;
+			var tower;
 			
-			//PORTE
-			var door;
-			
-			//WALL 1
-			var top_wall, top_wall2;
-			var bloc_wall, bloc_wall2, bloc_wall3, bloc_wall4, bloc_wall5, bloc_wall6;
-			var mini_wall1,mini_wall2;
-			var wall_fill;
-			var wall_left,wall_right;
-			var wall_left_fill,wall_right_fill;
+		
 
-			//WALL 2
-			var top_wall2_1, top_wall2_2;
-			var plop,plop2,plop3,plop4,plop5,plop6,plop7,plop8,plop9,plop10;
-			var wall2_fill;
-			//WALL 3
-			var top_wall3_1, top_wall3_2;
-			//WALL 4
-			var top_wall4_1, top_wall4_2;
-			//WALL7
-			var wall7_fill;
-			//WALL8
-			var wall8_fill;
-			//WALL 9
-			var wall9_fill;
-			//TOUR 50,170
-			var plop_50170,plop_501702,plop_501703,plop_501704,plop_501705;
-			//TOUR 550,170
-			var plop_550170,plop_5501702,plop_5501703,plop_5501704,plop_5501705;
-			var roof_550170; //TOIT
-			
-			//TOUR 50, 1000
-			var roof_501000;
-
-			//TOUR 550, 100
-			var roof_550100;
-
-			//TOUR -280, 750
-			var roof_280750;
-			//MUR PRINCIPAL: PORTE
-			var mainwall;
-			var mainwall_fill;
-
-			//TOIT PRINCIPAL
-			var coneb_1, coneb_2, coneb_3;
-			var conec_1, conec_2, conec_3;
-			var coned_1, coned_2, coned_3;
-			var conee_1, conee_2, conee_3;
-			var conef_1, conef_2, conef_3;
-			var coneg_1, coneg_2, coneg_3;
-			var coneh_1, coneh_2, coneh_3;
-			var cone_pic;
-
-			//SOUS LE TOIT
-			var subwall1, subwall2, subwall3;
-			var subroof;
 
 			init();
 			animate();
@@ -106,11 +51,11 @@
 				var sound_Emil = new THREE.Audio( listener_Emil );
 				var audioLoader_Emil = new THREE.AudioLoader();
 				
-				audioLoader_Emil.load( 'musique/Nier_Weight_of_the_world.mp3', function( buffer )
+				audioLoader_Emil.load( 'musique/Nier_Emil_song_Vocal.mp3', function( buffer )
 				{
 				sound_Emil.setBuffer( buffer );
 				sound_Emil.setLoop( true );
-				sound_Emil.setVolume( 0.2 );
+				sound_Emil.setVolume( 1.5 );
 				sound_Emil.play();
 				});
 
