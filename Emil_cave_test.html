@@ -20,7 +20,7 @@
 		<script>
 			
 			var camera, scene,renderer;
-			var tower;
+			var emil_face;
 
 			
 			
@@ -36,53 +36,95 @@
 				controls.update();
 				scene = new THREE.Scene();
 
-				var geometry = new THREE.CylinderGeometry( 50, 50, 200, 60 );
-				var material = new THREE.MeshBasicMaterial( {color:0xff000 } );
-				tower = new THREE.Mesh( geometry, material );
-				tower.position.x=0;
-				tower.position.y=0;
-				tower.position.z=0;
-				scene.add( tower );
+				
+				var emil_face_texture = new THREE.TextureLoader().load('textures/Emil_face.jpg');
+				
+				
+				var geometry = new THREE.OctahedronBufferGeometry( 10,5 );
+				var material = new THREE.MeshBasicMaterial( {map : emil_face_texture } );
+				emil_face = new THREE.Mesh( geometry, material );
+				emil_face.position.x=0;
+				emil_face.position.y=20;
+				emil_face.position.z=0;
+				scene.add( emil_face );
 
 				///Menu
 				/*var gui_Emil = new dat.GUI();
 				var music_name;
+				var liste;
 				var params_Emil= 
 				{
 				}
-				gui_Emil.add(config,'musique',['Emil_song_Vocal','Kaine_salvation_Vocal','Kaine_salvation_Off_vocal']).name('musique_Emil').onChange(func(value))
+				gui_Emil.add(liste,'musique',['Emil_song_Vocal','Kaine_salvation_Vocal','Kaine_salvation_Off_vocal']).name('musique_Emil').onChange(func(value))
 				{
 					music_name=value;
 					load_music(music_name)
-				}
-				*/
+				}*/
+				
 				
 				///Musique Emil
 				
-					var listener_Emil = new THREE.AudioListener();
-					camera.add(listener_Emil);
-					var sound_Emil = new THREE.Audio( listener_Emil );
-					var audioLoader_Emil = new THREE.AudioLoader();
-					audioLoader_Emil.load( 'musique/'+config.musique+'.mp3', function( buffer )
+					var background_listener_Emil = new THREE.AudioListener();
+					camera.add(background_listener_Emil);
+					var background_sound_Emil = new THREE.Audio( background_listener_Emil );
+					var background_audioLoader_Emil = new THREE.AudioLoader();
+					background_audioLoader_Emil.load( 'musique/Nier_Kaine_salvation_Vocal.mp3', function( buffer )
 					{
-					sound_Emil.setBuffer( buffer );
-					sound_Emil.setLoop( true );
-					sound_Emil.setVolume( 0.2 );
-					sound_Emil.play();
+					background_sound_Emil.setBuffer( buffer );
+					background_sound_Emil.setLoop( true );
+					background_sound_Emil.setVolume( 0.2 );
+					background_sound_Emil.play();
 					});
 				
-				
-				
+				//Musique sur Emil
+					var Emil_song = new THREE.AudioListener();
+					camera.add( Emil_song );
+					var sound_Emil_song = new THREE.PositionalAudio( Emil_song );
+					var audioLoader_Emil_song = new THREE.AudioLoader();
+					audioLoader_Emil_song.load( 'musique/Nier_Emil_song_Vocal.mp3', function( buffer ) {
+						sound_Emil_song.setBuffer( buffer );
+						sound_Emil_song.setRefDistance( 20 );
+						sound_Emil_song.setLoop(true);
+						sound_Emil_song.play();
+						});
 
-				
+					//Finally add the sound to the mesh
+					emil_face.add( sound_Emil_song );
 
 
+					
+					
+					
+				//FLOOR
+/*				var floorTexture = new THREE.ImageUtils.loadTexture( 'textures/ground.jpg' );
+				floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
+				floorTexture.repeat.set( 10, 10 );
+				var floorMaterial = new THREE.MeshBasicMaterial({ map: floorTexture, side: THREE.DoubleSide });
+				var floorGeometry = new THREE.PlaneGeometry(1000, 1000, 10, 10);
+				var floor = new THREE.Mesh(floorGeometry, floorMaterial);
+				floor.position.y = -0.5;
+				floor.rotation.x = Math.PI / 2;
+				scene.add(floor);				
+*/					
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				document.body.appendChild( renderer.domElement );
 
-				//
+				//SKYBOX
+				var materialArray = [];
+				materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'textures/skybox_left.png' ) }));
+				materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'textures/skybox_right.png' ) }));
+				materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'textures/skybox_top.png' ) }));
+				materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'textures/skybox_bottom.png' ) }));
+				materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'textures/skybox_back.png' ) }));
+				materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'textures/skybox_front.png' ) }));
+				for (var i = 0; i < 6; i++)
+				   materialArray[i].side = THREE.BackSide;
+				var skyboxMaterial = new THREE.MeshFaceMaterial( materialArray );
+				var skyboxGeom = new THREE.CubeGeometry( 5000, 5000, 5000, 1, 1, 1 );
+				var skybox = new THREE.Mesh( skyboxGeom, skyboxMaterial );
+				scene.add( skybox );
 
 				window.addEventListener( 'resize', onWindowResize, false );
 
