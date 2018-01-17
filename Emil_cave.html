@@ -17,22 +17,22 @@
 		<script src="build/three.js"></script>
 		<script src="js/controls/OrbitControls.js"></script>
 		<script>
-			
+
 			var camera, scene,renderer;
 			var tower;
-			
-		
+
+
 
 
 			init();
 			animate();
 
 			function init() {
-			
+
 				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 10000 );
 					camera.position.z =400;
 				var controls = new THREE.OrbitControls( camera );
-			
+
 				controls.update();
 				scene = new THREE.Scene();
 
@@ -44,13 +44,13 @@
 				tower.position.z=0;
 				scene.add( tower );
 
-							
+
 				///Musique Emil
 				var listener_Emil = new THREE.AudioListener();
 				camera.add(listener_Emil);
 				var sound_Emil = new THREE.Audio( listener_Emil );
 				var audioLoader_Emil = new THREE.AudioLoader();
-				
+
 				audioLoader_Emil.load( 'musique/Nier_Emil_song_Vocal.mp3', function( buffer )
 				{
 				sound_Emil.setBuffer( buffer );
@@ -88,8 +88,11 @@
 				renderer.render( scene, camera );
 
 			}
-			
 
+
+
+
+plop
 		</script>
 
 	</body>
